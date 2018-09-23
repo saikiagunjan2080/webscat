@@ -1,0 +1,378 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      
+xmlns:h="http://java.sun.com/jsf/html"
+      
+xmlns:f="http://java.sun.com/jsf/core"
+      
+xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<link rel="shortcut icon" href="./images/11.jpg"/>
+<title>WEBSCAT</title>
+
+<meta content="text/html; charset=UTF-8" http-equiv="Content-type" />
+   <link type = "text/css"  rel="stylesheet" href="css/theory.css" /> 
+
+</h:head>
+<div id="container">
+
+<div id="headercont">
+
+<p><img src="./images/11.jpg" width="1230" height="120" align="middle"/>
+</p>
+
+</div>
+
+<h:body>
+
+<p:layout style="min-width:1200px;min-height:400px;" id="layout">  
+    
+
+	<p:layoutUnit position="west" size="357" minSize="200" maxSize="257">
+	<p:menu style="width:240px">  
+        <p:submenu label=" ">  
+            
+<p:menuitem value="Home" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/aboutus.jsf" icon="ui-icon-play"/>    
+<p:menuitem value="Theoretical Calculation Mode" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/theory.jsf" icon="ui-icon-play"/>
+		
+<p:menuitem value="Experimental Data Analysis Mode" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/experiment.jsf" icon="ui-icon-play"/>
+		
+
+<p:menuitem value="Group Members" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/member.jsf" icon="ui-icon-play"/>		
+<p:menuitem value="Publications" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/publication.jsf" icon="ui-icon-play"/>
+		
+<p:menuitem value="Help" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/help.jsf" icon="ui-icon-play"/>
+			
+		</p:submenu>  
+          
+    </p:menu>  
+	
+	
+	
+	</p:layoutUnit>
+	
+	<p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">  
+    <p:graphicImage value="./images/spinnnnnn.gif" />  
+	</p:dialog>
+
+<h:form id="theoryform">
+<p:growl id="login" sticky="true" showDetail="true"/>
+<p:layoutUnit position="center">
+
+<div align="center">
+
+<table>
+  
+<tr>
+<th><h1>Theoretical Calculation Mode</h1></th>
+</tr>
+
+</table>
+
+
+  
+
+<fieldset>
+<legend><h3>Refractive index of the Particle</h3></legend>
+
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr><td valign="top" width="1%"><b>
+  Real Part:
+</b></td>
+<td valign="top" width="1%"><b>
+   <p:inputText id="rri" value="#{tuScatBean.rrefractiveIndexTextBox}" /> 
+</b></td>
+<td width="1%"><b>
+   Imaginary Part:
+</b></td>
+<td width="1%"><b>
+   <p:inputText id="iri" value="#{tuScatBean.irefractiveIndexTextBox}" /> 
+</b></td></tr>
+
+
+</table>
+
+</fieldset>
+
+<fieldset>
+<legend><h3>Incident Wavelength</h3></legend>
+
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr><td valign="top" width="1%"><b>
+   
+</b></td>
+<td valign="top" width="1%"><b>
+<p:inputText value="#{tuScatBean.waveLengthText}" />
+</b></td>
+
+<td valign="top" width="1%"><b>
+
+</b></td>
+
+<td valign="top" width="1%"><b>
+</b></td>
+
+<td valign="top" width="1%"><b>
+</b></td>
+</tr>
+</table>
+</fieldset>
+
+
+<fieldset>
+<legend><h3>Particle Geometry</h3></legend>
+
+
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr>  
+
+ 
+<td valign="top" width="1%"><b>
+<h:panelGrid id="grid1"  >
+<p:selectOneMenu value="#{tuScatBean.selectcomboTypesShap}"   >
+<p:ajax event="change" update="grid1" listener="#{tuScatBean.onChangecomboTypesShap}" />
+                        <f:selectItem itemLabel="Select" itemValue="Select" />
+                        <f:selectItem itemLabel="Sphere" itemValue="Sphere" />
+                        <f:selectItem itemLabel="Cylinder" itemValue="Cylinder" />
+                        <f:selectItem itemLabel="Spheroid" itemValue="Spheroid" />
+</p:selectOneMenu>
+
+<br/>
+
+
+<h:panelGroup   rendered="#{tuScatBean.boolsphere}">
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr>
+<td valign="top" width="1%"><b>
+A/B or D/L ratio:
+</b></td>
+<td valign="top" width="1%"><b>
+   <p:inputText value="#{tuScatBean.a_bOrC_LTextBox}" />
+</b></td>
+<td valign="top" width="1%"><b>	
+Accuracy of Computation:
+</b></td>
+<td valign="top" width="1%"><b>
+   <p:inputText value="#{tuScatBean.accuracyTextBox}" />
+</b></td> 
+</tr>
+</table>  
+</h:panelGroup>
+</h:panelGrid>
+</b>
+</td>
+</tr>
+</table>
+</fieldset>
+
+
+<fieldset>
+<legend><h3>Size Distribution</h3></legend>
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr> 
+
+  
+<td valign="top" width="1%"><b>
+<h:panelGrid id="grid2"  >
+
+<p:selectOneMenu value="#{tuScatBean.selectcombosizeDis}">
+<p:ajax event="change" update="grid2" listener="#{tuScatBean.onChangecombosizeDis}" />
+                        <f:selectItem itemLabel="Select" itemValue="Select" />
+                        <f:selectItem itemLabel="Monodisperse" itemValue="Monodisperse" />
+                        <f:selectItem itemLabel="Gamma" itemValue="Gamma" />
+                        <f:selectItem itemLabel="Normal" itemValue="Normal" />
+			<f:selectItem itemLabel="Lognormal" itemValue="Lognormal" />
+</p:selectOneMenu>
+
+<h:panelGroup rendered="#{tuScatBean.boolshapenot}" style="margin: 0 auto;" >
+
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3"  align="left">
+<tr>
+<td valign="top" width="1%"><b>
+Radius:
+</b></td>
+</tr>
+<tr>
+<td valign="top" width="1%"><b>
+<p:inputText value="#{tuScatBean.radiusTextBox}" />  
+</b></td>
+</tr>
+</table> 
+
+</h:panelGroup>
+
+<h:panelGroup rendered="#{tuScatBean.boolshape}" >
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr><td valign="top" width="1%"><b>
+Lowest Particle Radius:
+</b></td> 
+<td valign="top" width="1%"><b>
+<p:inputText value="#{tuScatBean.lowestPartRadiusText}" /> 
+</b></td> 
+<td valign="top" width="1%"><b>
+Highest Particle Radius:
+</b></td>
+<td valign="top" width="1%"><b>
+<p:inputText value="#{tuScatBean.highestPartRadiusText}" /> 
+</b></td> 
+</tr>
+</table> 
+</h:panelGroup>
+
+<h:panelGroup rendered="#{tuScatBean.boolshape}">
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr><td valign="top" width="1%"><b>
+<h:outputText value="#{tuScatBean.labelalfasigma}" />
+</b></td> 
+<td valign="top" width="1%"><b> 
+<p:inputText value="#{tuScatBean.sigmaText}" />
+</b></td>
+<td valign="top" width="1%"><b>
+<h:outputText value="Modal Radius  : " />   
+</b></td>
+<td valign="top" width="1%"><b>
+<p:inputText value="#{tuScatBean.modalradiusText}" /> 
+</b></td>
+</tr>
+</table>   
+</h:panelGroup>
+
+
+
+ 
+</h:panelGrid>
+</b>
+</td>
+</tr>
+</table>
+</fieldset>
+
+
+
+
+  
+<fieldset>
+<legend><h3>Action</h3></legend>
+
+  <p:commandButton value="Calculate" update="grid2,grid3,grid1,grid33" id="ajaxb1"  
+             actionListener="#{tuScatBean.calculateValue}" />   
+
+  
+
+  <p:commandButton value="Save Theoretical Data" update="grid2,grid3,grid1," id="ajaxb3" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop)"
+             actionListener="#{tuScatBean.saveTheorialDataValue}" />   
+
+	<p:commandButton id="downloadLink" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop)"   
+        icon="ui-icon-arrowthichk-s">
+		<p:fileDownload value="#{tuScatBean.file}" />
+	</p:commandButton>
+	
+	<p:commandButton value="Show Graph" update="" id="ajaxb4"  
+             actionListener="#{tuScatBean.ploatValue}" /> 
+			 
+			 
+			 
+<p:commandButton value="Reset" id="ajaxb13"  
+             actionListener="#{tuScatBean.reset}" ajax="false" /> 
+
+</fieldset>
+                  
+ 
+
+
+
+
+
+<fieldset>
+<legend><h3>Results</h3></legend>
+<h:panelGrid id="grid3"  >
+    <p:dataTable var="car" value="">
+        <p:column headerText="Extinction Eff./Coeff.">
+            <h:outputText value="#{tuScatBean.extinctionCoefficentValue}" />
+        </p:column>
+
+        <p:column headerText="Scattering Eff./Coeff.">
+            <h:outputText value="#{tuScatBean.scattereingCoefficentValue}" />
+        </p:column>
+
+        <p:column headerText="Absorption Eff./Coeff.">
+            <h:outputText value="#{tuScatBean.absorptionCoefficentValue}" />
+        </p:column>
+
+        <p:column headerText="Single Scattering Albedo">
+            <h:outputText value="#{tuScatBean.singleScatteringValue}" />
+        </p:column>
+	<p:column headerText="Asymmetry Parameter">
+            <h:outputText value="#{tuScatBean.assymmetricLabeltValue}" />
+        </p:column>
+    </p:dataTable>
+
+</h:panelGrid > 
+
+<legend><h3></h3></legend>
+<p:scrollPanel style="width:750px;height:150px">
+<h:panelGrid id="grid33"  >
+    <p:dataTable var="tuScatPojo" value="#{tuScatBean.listofdata}">
+        <p:column headerText="Angle">
+            <h:outputText value="#{tuScatPojo.angle}" />
+        </p:column>
+
+        <p:column headerText="S11">
+            <h:outputText value="#{tuScatPojo.s11P}" />
+        </p:column>
+
+        <p:column headerText="-S12/S11">
+            <h:outputText value="#{tuScatPojo.s12P}" />
+        </p:column>
+
+        <p:column headerText="S33/S11">
+            <h:outputText value="#{tuScatPojo.s33P}" />
+        </p:column>
+	<p:column headerText="S34/S11">
+            <h:outputText value="#{tuScatPojo.s34P}" />
+        </p:column>
+    </p:dataTable>
+
+</h:panelGrid >
+</p:scrollPanel>   
+</fieldset>            
+
+
+
+
+
+
+
+
+<p/>
+
+
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+<hr/>
+
+
+
+
+<font size="-3">
+
+
+</font>
+</div>
+</p:layoutUnit>
+</h:form>
+<script type="text/javascript">  
+function start() {  
+    PF('statusDialog').show();  
+}  
+  
+function stop() {  
+    PF('statusDialog').hide();  
+}  
+        </script> 
+</p:layout>
+
+</h:body></div></html>

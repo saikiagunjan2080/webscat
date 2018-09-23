@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      
+xmlns:h="http://java.sun.com/jsf/html"
+      
+xmlns:f="http://java.sun.com/jsf/core"
+      
+xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<title>Tezpur University</title>
+
+<meta content="text/html; charset=UTF-8" http-equiv="Content-type" />
+   <link type = "text/css"  rel="stylesheet" href="css/userstyleforGraph.css" /> 
+
+</h:head>
+<div id="container">
+<div id="headercont">
+
+<p><img src="./images/11.jpg" width="1030" height="90" align="middle"/></p>
+</div>
+<h:body>
+<p:layout style="min-width:1000px;min-height:500px;" id="layout">  
+    
+<p:layoutUnit position="west" size="357" minSize="200" maxSize="257">
+<p:menu style="width:250px">  
+        
+<p:submenu label=""> 
+ 
+        
+<p:menuitem value="Home" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/aboutus.jsf" icon="ui-icon-play"/>    
+<p:menuitem value="Theoritical Data Analysis Mode" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/theory.jsf" icon="ui-icon-play"/>
+		
+<p:menuitem value="Experimental Data Analysis Mode" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/experiment.jsf" icon="ui-icon-play"/>
+		
+
+<p:menuitem value="Group Member" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/member.jsf" icon="ui-icon-play"/>		
+<p:menuitem value="Publications" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/publication.jsf" icon="ui-icon-play"/>
+		
+<p:menuitem value="Help" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/help.jsf" icon="ui-icon-play"/>
+                               
+       
+
+ </p:submenu>
+</p:menu>  
+  
+
+</p:layoutUnit>
+
+
+<h:form>
+
+<p:layoutUnit position="center">
+<fieldset>
+<legend>Graph
+</legend>
+
+
+<p:separator id="separator1" style="height:10px" /> 
+ 
+
+<p:lineChart id="linear1" value="#{tuScatBean.linearModel}" legendPosition="e" zoom="true"
+     title="S11 versus scattering angle(Linear)" minX="0" maxX="180" minY="0" maxY="1" style="height:300px" widgetVar="chart"/>
+
+
+
+
+
+
+
+<p:separator id="separator2" style="height:10px" /> 
+
+
+<p:lineChart id="linear2" value="#{tuScatBean.linearModel2}" legendPosition="e" zoom="true"
+     title="-S12/S11 versus scattering angle" minX="0" maxX="180" minY="-1" maxY="1" style="height:300px" widgetVar="chart3"/>
+
+
+<p:separator id="separator3" style="height:10px" /> 
+
+
+
+
+<p:lineChart id="linear3" value="#{tuScatBean.linearModel3}" legendPosition="e" zoom="true"
+     title="S34/S11 versus scattering angle" minX="0" maxX="180" minY="-1" maxY="1" style="height:300px" widgetVar="chart2"/>
+
+
+<p:separator id="separator4" style="height:10px" />
+ 
+
+
+<p:lineChart id="linear4" value="#{tuScatBean.linearModel4}" legendPosition="e" zoom="true"
+     title="S33/S11 versus scattering angle" minX="0" maxX="180" minY="-1" maxY="1" style="height:300px" widgetVar="chart1"/>
+
+
+<p:separator id="separator5" style="height:10px" /> 
+
+<p:lineChart id="linear5" value="#{tuScatBean.linearModel1}" legendPosition="e" zoom="true"
+     title="S34/S11 versus scattering angle" minX="0" maxX="180" minY="-1" maxY="1" style="height:300px" widgetVar="chart1"/>
+<p:separator id="separator6" style="height:10px" />
+
+ </fieldset>                 
+ 
+
+
+
+
+
+
+
+<p/>
+
+
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+<hr/>
+
+
+
+
+<font size="-3"></font>
+
+</p:layoutUnit>
+</h:form>
+</p:layout>
+
+</h:body></div></html>

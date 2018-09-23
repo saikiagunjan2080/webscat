@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      
+xmlns:h="http://java.sun.com/jsf/html"
+      
+xmlns:f="http://java.sun.com/jsf/core"
+      
+xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<title>TUSCAT: Plotting Window</title>
+
+<link href="./css/styles.css" 
+      rel="stylesheet" type="text/css"/> 
+
+</h:head>
+<h:body>
+<p:tabMenu activeIndex="0">
+    <p:menuitem value="Theoritical Data Analysis Mode" url="http://14.139.219.248/prime-faces-exercises-1/welcome.jsf" icon="ui-icon-star"/>
+    <p:menuitem value="Experimental Data Analysis Mode" url="http://14.139.219.248/prime-faces-exercises-1/welcome.jsf" icon="ui-icon-star"/>
+    <p:menuitem value="About us" url="http://14.139.219.248/prime-faces-exercises-1/welcome.jsf" icon="ui-icon-star"/>
+    <p:menuitem value="Publications" url="http://14.139.219.248/prime-faces-exercises-1/welcome.jsf" icon="ui-icon-star"/>
+    <p:menuitem value="Help" url="http://14.139.219.248/prime-faces-exercises-1/welcome.jsf" icon="ui-icon-star"/>
+</p:tabMenu>
+
+<h:form>
+
+
+<div align="center">
+
+<table class="title">
+  
+<tr>
+<th>Theoritical Data Analysis Graph</th>
+</tr>
+
+</table>
+
+<p/>
+
+  
+
+
+
+
+               
+                  
+ 
+
+
+
+
+<fieldset>
+<legend>Graph
+</legend>
+
+
+ 
+<p:lineChart id="linear1" value="#{tuScatBean.linearModel}" legendPosition="e" zoom="true"
+     title="Linear Chart 1" minY="0" maxY="1" style="height:300px" widgetVar="chart"/>
+
+<p:lineChart id="linear2" value="#{tuScatBean.linearModel2}" legendPosition="e" zoom="true"
+     title="Linear Chart 2" minY="0" maxY="1" style="height:300px" widgetVar="chart3"/>
+
+
+
+<p:lineChart id="linear3" value="#{tuScatBean.linearModel3}" legendPosition="e" zoom="true"
+     title="Linear Chart 3" minY="0" maxY="1" style="height:300px" widgetVar="chart2"/>
+
+
+<p:lineChart id="linear4" value="#{tuScatBean.linearModel4}" legendPosition="e" zoom="true"
+     title="Linear Chart 4" minY="0" maxY="1" style="height:300px" widgetVar="chart1"/>
+
+
+
+ </fieldset>
+
+
+<p/>
+
+
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+<hr/>
+
+
+
+
+<font size="-3">
+
+This code is from 
+<a href="http://www.coreservlets.com/JSF-Tutorial/jsf2/">the coreservlets.com JSF 2.0 and PrimeFaces tutorial</a>.
+
+There is also a variety of other free
+<a href="http://courses.coreservlets.com/Course-Materials/">
+
+J2EE tutorials (servlets, JSP, JSF 2.0, PrimeFaces, Ajax [with jQuery], GWT, Spring, Hibernate, JPA,
+SOAP-based and RESTful Web Services, Android development, Hadoop, &amp; Java 6 and Java 7 programming)</a>
+as well as live instructor-led <a href="http://courses.coreservlets.com/">training courses on
+the same J2EE topics (servlets, JSP, JSF 2.0, PrimeFaces, Ajax [with jQuery], GWT, Spring, Hibernate, JPA,
+SOAP-based and RESTful Web Services, Android development, Hadoop &amp; Java 6 and Java 7 programming)</a>.</font>
+</div>
+</h:form>
+
+
+</h:body></html>

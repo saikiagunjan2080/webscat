@@ -1,0 +1,739 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      
+xmlns:h="http://java.sun.com/jsf/html"
+      
+xmlns:f="http://java.sun.com/jsf/core"
+      
+xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<title>WEBSCAT</title>
+
+<meta content="text/html; charset=UTF-8" http-equiv="Content-type" />
+   
+
+<link type = "text/css"  rel="stylesheet" href="css/xprimentalcss.css" /> 
+
+</h:head>
+<div id="container1">
+<div id="headercont">
+<p><img src="./images/11.jpg" width="1230" height="120" align="middle"/>
+</p>
+</div>
+<h:body>
+<p:layout style="min-width:1200px;min-height:1500px;" id="layout">  
+    
+
+    
+
+	<p:layoutUnit position="west" size="357" minSize="200" maxSize="257">
+	<p:menu style="width:240px">  
+       <p:submenu label=" ">  
+            
+<p:menuitem value="Home" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/aboutus.jsf" icon="ui-icon-play"/>    
+<p:menuitem value="Theoritical Data Analysis Mode" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/theory.jsf" icon="ui-icon-play"/>
+		
+<p:menuitem value="Experimental Data Analysis Mode" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/experiment.jsf" icon="ui-icon-play"/>
+		
+
+<p:menuitem value="Group Members" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/member.jsf" icon="ui-icon-play"/>		
+<p:menuitem value="Publications" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/publication.jsf" icon="ui-icon-play"/>
+		
+<p:menuitem value="Help" url="http://webscat-webapptezpur.rhcloud.com/WEBSCATwebapplication/help.jsf" icon="ui-icon-play"/>
+			
+		</p:submenu>  
+          
+    </p:menu>  
+	
+	
+	
+	</p:layoutUnit>
+
+
+
+<h:form enctype="multipart/form-data">
+<p:growl id="growlCalculateMinimum" sticky="true" showDetail="true"/>
+
+
+<p:layoutUnit position="center">
+<table align="center">
+  
+<tr>
+<th><h1>Experimental Data Analysis</h1></th>
+<br/>
+<tr>
+<th><h2><FONT color="red" size="2">The web application is under development and at this moment, this preliminary version of the 'Experimental Data Analysis' mode is capable of estimating the size of spherical particles. The experimental data should be from 0 to 180 degrees</FONT></h2></th>
+</tr>
+</tr>
+
+</table> 
+
+<p/>
+
+
+
+<fieldset>
+<legend><h3>Incident Wavelength</h3></legend>
+
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr>
+<td valign="top" width="1%"><b>
+</b></td>
+<td valign="top" width="1%"><b>
+<p:inputText value="#{tuScatBean.waveLengthText}" /> 
+</b></td>
+</tr>
+</table>
+</fieldset>              
+ 
+ <fieldset>
+<legend><h3>Select the parameter to be estimated</h3></legend>
+ 
+<h:panelGrid id="grid21" columns="6" cellspacing="10">
+
+			<h:outputText style="font-weight:bold" value="Size: " />
+
+	       
+		<p:selectBooleanCheckbox value="#{tuScatBean.sizeRadioButton}">  
+            <p:ajax update="grid21,grid22,grid23" listener="#{tuScatBean.checkSize}"/>  
+			</p:selectBooleanCheckbox>
+	
+	
+             
+		
+  
+	<h:outputText style="font-weight:bold" value="Refractive Index: " />
+    
+
+ 
+          <p:selectBooleanCheckbox value="#{tuScatBean.refractiveRadioButton}">  
+            <p:ajax update="grid21,grid22,grid23,gridExRef,gridReImval" listener="#{tuScatBean.checkSize}"/>  
+        </p:selectBooleanCheckbox>
+
+ </h:panelGrid> 
+		
+	
+
+ 
+</fieldset> 
+<!-- 
+    	Refractive Start****************************************************************************************************************
+ -->
+
+
+
+
+ 
+
+
+
+
+
+<h:panelGrid id="grid22"  columns="2">
+
+   <h:panelGroup rendered="#{tuScatBean.refractiveRadioButton}">
+   <fieldset style="width: 930px; height: 80px;">
+   <p:panel id="p1"  style="width:923px;height:70px;">  
+		 <h:outputText style="font-weight:bold" value="Real Part: " escape="false" />  
+        <p:selectBooleanCheckbox value="#{tuScatBean.realindexRadioButton}">  
+            <p:ajax update="grid22,gridExRef,gridReImval,gridRadiusSphere,gridRadiusCylinder,gridRadiusSpheroid" listener="#{tuScatBean.checkRealImaginary}"/>  
+        </p:selectBooleanCheckbox> 
+  
+        <h:outputText style="font-weight:bold" escape="false" value="Imaginary Part: "  />  
+        <p:selectBooleanCheckbox value="#{tuScatBean.imagindexRadioButton}">  
+            <p:ajax update="grid22,gridExRef,gridReImval,gridRadiusSphere,gridRadiusCylinder,gridRadiusSpheroid" listener="#{tuScatBean.checkRealImaginary}"/>  
+        </p:selectBooleanCheckbox>
+	</p:panel>
+      </fieldset> 
+	</h:panelGroup>
+   </h:panelGrid> 
+   
+   
+   
+   <h:panelGrid id="gridReImval"  > 
+	<h:panelGroup rendered="#{tuScatBean.boolrefractive}">
+	<fieldset style="width: 930px; height: 80px;">
+	<p:panel id="p2"  style="width:923px;height:70px;">
+	<h:outputText style="font-weight:bold" value="#{tuScatBean.displayTextRealImag} " /> <p:inputText style="font-weight:bold" value="#{tuScatBean.radiusImgRealTextBox}" />  
+	</p:panel>
+	</fieldset> 
+	</h:panelGroup>
+	</h:panelGrid>
+	
+	
+	
+	
+<h:panelGrid id="gridExRef" > 
+
+<h:panelGroup rendered="#{tuScatBean.boolrefractive}">
+<fieldset style="width: 930px; height: 170px;">
+<p:panel id="p3"  style="width:923px;height:90px;">
+
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr>
+<td valign="top" width="1%"><b>
+<h:outputText value="#{tuScatBean.displayTextLegen}"/>
+</b>
+</td>
+</tr>
+<tr>
+<td valign="top" width="1%"><b>   
+       <h:outputText value="Minimum: " />  <p:inputText value="#{tuScatBean.minirefractiveIndexTextBox}" />  
+ </b></td> 
+ <td valign="top" width="1%"><b> 
+       <h:outputText value="Maximum: " />  <p:inputText value="#{tuScatBean.maxrefractiveIndexTextBox}" />  
+</b></td> 
+<td valign="top" width="1%"><b> 	
+       <h:outputText value="Step: " />  <p:inputText value="#{tuScatBean.steprefractiveIndexTextBox}" /> 
+</b></td> 
+</tr>
+</table>	   
+  
+ </p:panel> 
+
+<p:panel id="p4"  style="width:923px;height:70px;"> 
+<h:outputText style="font-weight:bold" value="Particle Geometry" /><br/>
+<p:selectOneMenu value="#{tuScatBean.selectcomboTypesShapImg}"   >
+<p:ajax event="change" update="gridRadiusSphere,gridRadiusCylinder,gridRadiusSpheroid" listener="#{tuScatBean.onChangeGeometryImg}" />
+                        <f:selectItem itemLabel="Select" itemValue="Select" />
+                        <f:selectItem itemLabel="Sphere" itemValue="Sphere" />
+                        <f:selectItem itemLabel="Cylinder" itemValue="Cylinder" />
+                        <f:selectItem itemLabel="Spheroid" itemValue="Spheroid" />
+</p:selectOneMenu>
+</p:panel>
+ 
+
+
+
+
+
+
+</fieldset>
+</h:panelGroup>
+</h:panelGrid>
+<!-- 
+    	Sphere Start
+ -->
+<h:panelGrid id="gridRadiusSphere"  > 
+
+<h:panelGroup rendered="#{tuScatBean.boolrefrctiveSphere}">
+<fieldset style="width: 930px; height: 80px;">
+<p:panel id="p5" style="width:923px;height:70px;">
+ <table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr>
+  
+ <td valign="top" width="1%"><b>      
+	   <h:outputText style="font-weight:bold" value="Enter the Radius of the Particle" /> <br/> <p:inputText value="#{tuScatBean.radiusTextBox}" />  
+</b></td>	   
+ </tr>
+</table>
+</p:panel>
+</fieldset>
+</h:panelGroup>
+
+</h:panelGrid>
+<!-- 
+    	Cylinder Start
+ -->
+<h:panelGrid id="gridRadiusCylinder"  > 
+
+<h:panelGroup rendered="#{tuScatBean.boolrefrctiveCylinder}">
+<fieldset style="width: 930px; height: 155px;">
+<p:panel id="p6"  style="width:923px;height:150px;"> 
+ <table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+ <tr>
+ <td>
+ <h3>Enter the Values of the Parameters</h3>
+ </td>
+ </tr>
+<tr>
+<td valign="top" width="1%"><b>
+<h:outputText style="font-weight:bold" value="Accuracy of T-matrix Computation" />  <p:inputText value="#{tuScatBean.accuracyTextBox}" />  
+</b></td>
+<td valign="top" width="1%"><b>
+ 	<h:outputText style="font-weight:bold" value="#{tuScatBean.displayTextLast}" />  <p:inputText value="#{tuScatBean.a_bOrC_LTextBox}" />
+</b></td>
+<td valign="top" width="1%"><b>
+	<h:outputText style="font-weight:bold" value="Volume Equivalent Sphere Radius" />  <p:inputText value="#{tuScatBean.eqvRadiusTextBox}" />
+</b></td>	
+</tr>
+</table>
+</p:panel>
+</fieldset>
+</h:panelGroup>
+</h:panelGrid>
+
+<!-- 
+    	Spheroid Start
+ -->
+
+<h:panelGrid id="gridRadiusSpheroid"  > 
+
+<h:panelGroup rendered="#{tuScatBean.boolrefrctiveSpheroid}">
+<fieldset style="width: 930px; height: 155px;">
+<p:panel id="p17"  style="width:923px;height:150px;"> 
+ <table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+ <tr>
+ <td>
+ <h3>Enter the Values of the Parameters</h3>
+ </td>
+ </tr>
+<tr>
+<td valign="top" width="1%"><b>
+<h:outputText style="font-weight:bold" value="Accuracy of T-matrix Computation" />  <p:inputText value="#{tuScatBean.accuracyTextBox}" />  
+</b></td>
+<td valign="top" width="1%"><b>
+ 	<h:outputText style="font-weight:bold" value="#{tuScatBean.displayTextLast}" />  <p:inputText value="#{tuScatBean.a_bOrC_LTextBox}" />
+</b></td>
+<td valign="top" width="1%"><b>
+	<h:outputText style="font-weight:bold" value="Volume Equivalent Sphere Radius" />  <p:inputText value="#{tuScatBean.eqvRadiusTextBox}" />
+</b></td>	
+</tr>
+</table>
+</p:panel>
+</fieldset>
+</h:panelGroup>
+</h:panelGrid>
+
+<!-- 
+    	Refractive End****************************************************************************************************************
+ -->
+
+
+ 
+ 
+ 
+ 
+ <!-- 
+    	Starting of Selected parameter as Size
+ -->
+ 
+
+<h:panelGrid id="grid23"> 
+
+
+<h:panelGroup rendered="#{tuScatBean.sizeRadioButton}">
+<fieldset style="width: 930px; height: 225px;"> 
+<p:panel id="p7"  style="width:923px;height:110px;"> 
+
+		
+<table border="0" bordercolor="white" bgcolor="white"  >
+<tr>
+<td>
+<h3>Particle refractive index
+</h3>
+</td>
+</tr>
+<tr>
+<td valign="top" width="1%"><b>
+ <h:outputText style="font-weight:bold" value="Real: " />
+ </b></td>
+<td valign="top" width="1%"><b>
+  <p:inputText value="#{tuScatBean.fixedrrefractiveIndexTextBox}" />  
+ </b></td>
+  <td valign="top" width="1%"><b>
+    <h:outputText style="font-weight:bold" value="Imaginary: " />
+	</b></td>
+ <td valign="top" width="1%"><b>
+   <p:inputText value="#{tuScatBean.fixedirefractiveIndexTextBox}" />  
+  </b></td>
+    
+</tr>
+</table>
+</p:panel>
+ 
+
+	
+
+<p:panel id="p8"  style="width:923px;height:100px;">
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr>
+<td>
+<h:outputText style="font-weight:bold" value="Particle Geometry" />  <br/><br/>
+</td>
+<td>
+<p:selectOneMenu value="#{tuScatBean.selectcomboTypesShap}"   >
+		<p:ajax event="change" update="gridExRaRad,gridExRaRadSpCy,gridExRaRadSpheroid,gridExRangecylinderedl,gridExRangecylindereqi,gridExRangeSpheroidab,gridExRangeSpheroideqi" listener="#{tuScatBean.onChangeGeometry}" />
+                        <f:selectItem itemLabel="Select" itemValue="Select" />
+                        <f:selectItem itemLabel="Sphere" itemValue="Sphere" />
+                        <f:selectItem itemLabel="Cylinder" itemValue="Cylinder" />
+                        <f:selectItem itemLabel="Spheroid" itemValue="Spheroid" />
+		</p:selectOneMenu>
+</td>
+</tr>
+</table>
+</p:panel>	
+</fieldset>
+</h:panelGroup>
+
+</h:panelGrid> 
+
+						<!-- working with size radio button and Sphere-->
+						<br/>
+<h:panelGrid id="gridExRaRad"  > 
+
+<h:panelGroup rendered="#{tuScatBean.boolsizeRI}">
+<fieldset style="width: 930px; height: 110px;">	
+<p:panel id="p9"  style="width:923px;height:100px;">
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr>
+<td>
+<h4>Expected Range of Radius</h4>
+</td>
+</tr>
+<tr>
+<td valign="top" width="1%"><b>
+<h:outputText style="font-weight:bold" value="Minimum: " />  <p:inputText value="#{tuScatBean.minRadiusTextBox}" /> 
+</b></td>
+<td valign="top" width="1%"><b>
+<h:outputText style="font-weight:bold" value="Maximum: " />  <p:inputText value="#{tuScatBean.maxRadiusTextBox}" /> 
+</b></td>
+<td valign="top" width="1%"><b>
+<h:outputText style="font-weight:bold" value="Step: " />  <p:inputText value="#{tuScatBean.stepRadiusTextBox}" />  
+</b></td>
+</tr>
+</table> 
+</p:panel> 
+</fieldset> 
+</h:panelGroup>
+</h:panelGrid>
+
+						<!-- working End with size radio button and Sphere-->
+							
+							
+							
+							<!-- working with size radio button and Cylinder-->
+
+<h:panelGrid id="gridExRaRadSpCy"  > 
+
+<h:panelGroup rendered="#{tuScatBean.boolsizeRISpCy}">
+<fieldset style="width: 930px; height: 220px;">
+<p:panel id="p10" style="width:923px;height:100px;">
+
+<h:outputText style="font-weight:bold; text-align:centre;" value="Accuracy of Computation" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <p:inputText value="#{tuScatBean.accuracyTextBox}" /> 
+ 
+</p:panel>
+<p:panel id="p11"  style="width:923px;height:100px;">
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr>
+<td>
+<h:outputText style="font-weight:bold" value="Select parameter to be estimated" />  <br/><br/>
+</td>
+<td>
+
+<p:selectOneMenu value="#{tuScatBean.selectParameter}"   >
+		<p:ajax event="change" update="gridExRaRadSpCy,gridExRangecylindereqi,gridExRangecylinderedl" listener="#{tuScatBean.onChangeTypesParameter}" />
+                        <f:selectItem itemLabel="Select" itemValue="Select" />
+                        <f:selectItem itemLabel="D/L Ratio" itemValue="D/L Ratio" />
+                        <f:selectItem itemLabel="Equivalent Radius" itemValue="Equivalent Radius" />
+                        
+</p:selectOneMenu>
+
+ </td>
+ </tr>
+ </table>
+ </p:panel>     
+</fieldset>
+</h:panelGroup>
+
+</h:panelGrid>
+
+
+									<!-- working End with size radio button and Cylinder-->
+								
+
+
+
+									<!-- working with size radio button and Spheroid-->
+									
+									
+									
+<h:panelGrid id="gridExRaRadSpheroid"  > 
+<h:panelGroup rendered="#{tuScatBean.boolsizeRISproid}">
+<fieldset style="width: 930px; height: 220px;">
+<p:panel id="p15" style="width:923px;height:100px;">
+
+       <h:outputText style="font-weight:bold" value="Accuracy of Computation" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <p:inputText value="#{tuScatBean.accuracyTextBox}" /> 
+
+
+</p:panel>
+
+
+<p:panel id="p14"  style="width:923px;height:100px;">
+
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr>
+<td>
+<h:outputText style="font-weight:bold" value="Select parameter to be estimated" />  <br/><br/>
+</td>
+<td>
+<p:selectOneMenu value="#{tuScatBean.selectParameter}"   >
+		<p:ajax event="change" update="gridExRaRadSpheroid,gridExRangeSpheroidab,gridExRangeSpheroideqi" listener="#{tuScatBean.onChangeTypesParameter}" />
+                        <f:selectItem itemLabel="Select" itemValue="Select" />
+                        <f:selectItem itemLabel="A/B Ratio" itemValue="A/B Ratio" />
+                        <f:selectItem itemLabel="Equivalent Radius" itemValue="Equivalent Radius" />
+                        
+</p:selectOneMenu>
+ </td>
+ </tr>
+ </table>
+
+</p:panel> 
+</fieldset>
+</h:panelGroup>
+
+</h:panelGrid>
+
+
+
+								<!-- working End with size radio button and Spheroid-->
+								
+								<!-- working Start with size radio button and Cylinder and D/L ratio-->
+								
+								
+<h:panelGrid id="gridExRangecylinderedl"  > 
+
+<h:panelGroup rendered="#{tuScatBean.boolsizeABCD}">
+<fieldset style="width: 930px; height: 220px;">
+<p:panel id="p22"  style="width:923px;height:100px;"> 
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr>
+<td>
+       <h:outputText style="font-weight:bold" value="#{tuScatBean.displayTextABVE}" />  
+</td>
+<td>
+	   <p:inputText value="#{tuScatBean.eqvRadiusTextBox}" /> 
+</td>
+</tr>
+</table>
+
+</p:panel> 
+
+
+<p:panel id="p23"  style="width:923px;height:100px;">
+       <h:outputText style="font-weight:bold" value="#{tuScatBean.displayexpectedRange}" />  <br/><br/>
+	   <table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+	   <tr>
+	   <td>
+       <h:outputText style="font-weight:bold" value="Minimum" />  <p:inputText value="#{tuScatBean.minAccuracyTextBox}" /> 
+	   </td>
+	   <td>
+       <h:outputText style="font-weight:bold" value="Maximum" />  <p:inputText value="#{tuScatBean.maxAccuracyTextBox}" /> 
+	   </td>
+	   <td>
+       <h:outputText style="font-weight:bold" value="Step" />  <p:inputText value="#{tuScatBean.stepAccuracyTextBox}" /> 
+	   </td>
+	   </tr>
+		</table>
+ </p:panel> 
+
+
+  
+
+ </fieldset>
+ </h:panelGroup>
+</h:panelGrid>
+
+<!-- working End with size radio button and Cylinder and D/L ratio-->
+
+									
+		<!-- working Start with size radio button and Cylinder and Equivalent ratio-->							
+<h:panelGrid id="gridExRangecylindereqi"  > 
+
+<h:panelGroup rendered="#{tuScatBean.boolsizeABCD1}">
+<fieldset style="width: 930px; height: 220px;">
+<p:panel id="p12"  style="width:923px;height:100px;"> 
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr>
+<td>
+       <h:outputText style="font-weight:bold" value="#{tuScatBean.displayTextABVE}" />  
+</td>
+<td>
+	   <p:inputText value="#{tuScatBean.eqvRadiusTextBox}" /> 
+</td>
+</tr>
+</table>
+
+</p:panel> 
+
+
+<p:panel id="p13"  style="width:923px;height:100px;">
+       <h:outputText style="font-weight:bold" value="#{tuScatBean.displayexpectedRange}" />  <br/><br/>
+	   <table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+	   <tr>
+	   <td>
+       <h:outputText style="font-weight:bold" value="Minimum" />  <p:inputText value="#{tuScatBean.minAccuracyTextBox}" /> 
+	   </td>
+	   <td>
+       <h:outputText style="font-weight:bold" value="Maximum" />  <p:inputText value="#{tuScatBean.maxAccuracyTextBox}" /> 
+	   </td>
+	   <td>
+       <h:outputText style="font-weight:bold" value="Step" />  <p:inputText value="#{tuScatBean.stepAccuracyTextBox}" /> 
+	   </td>
+	   </tr>
+		</table>
+ </p:panel> 
+
+
+  
+
+ </fieldset>
+ </h:panelGroup>
+</h:panelGrid>
+<!-- working End with size radio button and Cylinder and Equivalent ratio-->	
+
+
+<!-- working Starts with size radio button and Spheroid and A/B ratio-->
+
+<h:panelGrid id="gridExRangeSpheroidab"  > 
+
+<h:panelGroup rendered="#{tuScatBean.boolsizeABCDspheroidab}">
+<fieldset style="width: 930px; height: 220px;">
+<p:panel id="p20"  style="width:923px;height:100px;"> 
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr>
+<td>
+       <h:outputText style="font-weight:bold" value="#{tuScatBean.displayTextABVE}" />  
+</td>
+<td>
+	   <p:inputText value="#{tuScatBean.eqvRadiusTextBox}" /> 
+</td>
+</tr>
+</table>
+
+</p:panel> 
+
+
+<p:panel id="p21"  style="width:923px;height:100px;">
+       <h:outputText style="font-weight:bold" value="#{tuScatBean.displayexpectedRange}" />  <br/><br/>
+	   <table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+	   <tr>
+	   <td>
+       <h:outputText style="font-weight:bold" value="Minimum" />  <p:inputText value="#{tuScatBean.minAccuracyTextBox}" /> 
+	   </td>
+	   <td>
+       <h:outputText style="font-weight:bold" value="Maximum" />  <p:inputText value="#{tuScatBean.maxAccuracyTextBox}" /> 
+	   </td>
+	   <td>
+       <h:outputText style="font-weight:bold" value="Step" />  <p:inputText value="#{tuScatBean.stepAccuracyTextBox}" /> 
+	   </td>
+	   </tr>
+		</table>
+ </p:panel> 
+
+
+  
+
+ </fieldset>
+ </h:panelGroup>
+</h:panelGrid>
+
+<!-- working End with size radio button and Spheroid and A/B ratio-->
+
+<!-- working Starts with size radio button and Spheroid and Equivalent ratio-->
+<h:panelGrid id="gridExRangeSpheroideqi"  > 
+
+<h:panelGroup rendered="#{tuScatBean.boolsizeABCDspheroiddl}">
+<fieldset style="width: 930px; height: 220px;">
+<p:panel id="p24"  style="width:923px;height:100px;"> 
+<table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+<tr>
+<td>
+       <h:outputText style="font-weight:bold" value="#{tuScatBean.displayTextABVE}" />  
+</td>
+<td>
+	   <p:inputText value="#{tuScatBean.eqvRadiusTextBox}" /> 
+</td>
+</tr>
+</table>
+
+</p:panel> 
+
+
+<p:panel id="p25"  style="width:923px;height:100px;">
+       <h:outputText style="font-weight:bold" value="#{tuScatBean.displayexpectedRange}" />  <br/><br/>
+	   <table border="0" bordercolor="white" bgcolor="white" width="100%" height="20%" cellspacing="1" cellpadding="3">
+	   <tr>
+	   <td>
+       <h:outputText style="font-weight:bold" value="Minimum" />  <p:inputText value="#{tuScatBean.minAccuracyTextBox}" /> 
+	   </td>
+	   <td>
+       <h:outputText style="font-weight:bold" value="Maximum" />  <p:inputText value="#{tuScatBean.maxAccuracyTextBox}" /> 
+	   </td>
+	   <td>
+       <h:outputText style="font-weight:bold" value="Step" />  <p:inputText value="#{tuScatBean.stepAccuracyTextBox}" /> 
+	   </td>
+	   </tr>
+		</table>
+ </p:panel> 
+
+
+  
+</fieldset>
+ </h:panelGroup>
+</h:panelGrid>
+<p/>
+<!-- working End with size radio button and Spheroid and Equivalent ratio-->
+<!-- 
+    	Size Ends****************************************************************************************************************
+ -->
+ 
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+<hr/>
+
+
+
+
+               
+
+
+<fieldset>
+<legend><h3>Actions</h3></legend>
+
+  
+ 
+
+  
+
+<p:inputTextarea style="margin-left:390px" id="textarea" rows="5" cols="25" maxlength="15000" value="#{tuScatBean.minimunError}"      
+     autoResize="false"/> 
+	 
+<br/>	
+<p:commandButton style="margin-left:60px" value="Show Experimental Plot" update="" id="ajaxb14"  
+             actionListener="#{tuScatBean.ploatValueExprimentSingle}" />
+<p:commandButton value="Calculate Minimum Error" update="growlCalculateMinimum" id="ajaxb5"  
+             actionListener="#{tuScatBean.minimumCalculationErrorMessage}"/> 
+<p:commandButton value="Over Plot Theoretical Data" update="" id="ajaxb6"  
+             actionListener="#{tuScatBean.ploatValueExpriment}" />
+<p:commandButton value="Save Estimated Data" update="" id="ajaxb3"  
+             actionListener="#{tuScatBean.saveTheorialDataValue}" />
+<p:commandButton value="Reset" id="ajaxb13"  
+             actionListener="#{tuScatBean.reset}" ajax="false" /> 
+			 
+  
+
+
+
+
+
+</fieldset>  
+
+<p/>
+
+
+
+
+
+</p:layoutUnit>
+
+</h:form>
+</p:layout>
+
+<font size="-3">
+
+</font>
+</h:body></div></html>
